@@ -1,0 +1,64 @@
+h1 {
+  text-align: center;
+  color: #d73773;
+}
+table {
+  margin: 30 auto;
+  height: 420;
+}
+td{
+  height:70px;
+  width: 70px;
+  border: 1px solid #e4e4e4;
+}
+
+
+/*Object*/
+.a{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background: #11d1c8;
+}
+
+.b{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background: #dd86ff;
+}
+
+.enemy{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background: #ff77b1;
+}
+
+.remove{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background: #ffa268;
+}
+
+.crystal{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background: #ffd271;
+}
+
+/*.container{
+  width: 700px;
+}
+
+.col-xs-1 {
+  border: 1px solid red;
+  height:100px;
+}*/
