@@ -30,7 +30,7 @@ td{
   background: #dd86ff;
 }
 
-.enemy{
+.c{
   margin: 0 auto;
   width: 50px;
   height: 50px;
@@ -38,7 +38,7 @@ td{
   background: #ff77b1;
 }
 
-.remove{
+.d{
   margin: 0 auto;
   width: 50px;
   height: 50px;
@@ -46,7 +46,7 @@ td{
   background: #ffa268;
 }
 
-.crystal{
+.e{
   margin: 0 auto;
   width: 50px;
   height: 50px;
@@ -54,6 +54,9 @@ td{
   background: #ffd271;
 }
 
+#instruct {
+  height: 50px;
+}
 /*.container{
   width: 700px;
 }
