@@ -1,11 +1,19 @@
 $(document).ready(function(){
   // game board array
-  var board = [];
+  var board = new Array([]);
   var keyCount = 0;
+
+  var object = function(type){
+    this.type = type;
+    this.y = '';
+    this.x = '';
+  }
+
   for (var y=0; y<6; y++){
     board[y]= [];
     for (var x=0; x<6; x++){
-      board[y][x] = {key:keyCount, object:{}};
+      board[y][x] = {key:keyCount, object: {}};
+      board[y][x].object = new object('blank');
       keyCount++;
     }
   }
@@ -14,15 +22,10 @@ $(document).ready(function(){
 
   // Object A
   // type, coords
-  var object = function(type){
-    this.type = type;
-    this.y = '';
-    this.x = '';
-  }
 
   var place = function($grid, piece){
-    piece.y = $grid.parent().attr('data-row');
-    piece.x = $grid.attr('data-column');
+    piece.y = Number($grid.parent().attr('data-row'));
+    piece.x = Number($grid.attr('data-column'));
     $grid.children().addClass(piece.type);
     board[piece.y][piece.x].object = piece;
   }
@@ -35,39 +38,85 @@ $(document).ready(function(){
     var y = piece.y;
     var x = piece.x;
     var type = piece.type;
+    var combo = [];
     // level up type
     var newType = String.fromCharCode(type.charCodeAt(0)+1);
-
-    if (board[y-1][x-1].object.type == type){
-      if (board[y-1][x].object.type == type){
-        removeObject(y-1, x-1, type);
-        removeObject(y-1, x, type);
-        place($grid, new object(newType));
-
-      } else if (board[y][x-1].object.type == type){
-        removeObject(y-1, x-1, type);
-        removeObject(y, x-1, type);
-        place($grid, new object(newType));
-      }
-    }
-
-    if (board[y-1][x+1].object.type == type){
-      if (board[y-1][x].object.type == type){
-        removeObject(y-1, x+1, type);
-        removeObject(y-1, x, type);
-        place($grid, new object(newType));
-      } else if (board[y][x+1].object.type == type){
-        removeObject(y-1, x+1, type);
-        removeObject(y, x+1, type);
-        place($grid, new object(newType));
-      }
-    }
-
-    if (board[y+1][x+1].object.type == type){
-
-    }
-
   }
+
+  // CHECK topLeft and topRight
+  var checkTopCorner = function(y, x, type){
+    var combo = [];
+    // top right corner
+    if (board[y][x+1].object.type == type&&
+        board[y+1][x+1].object.type == type){
+      combo.push(board[y][x+1].object,board[y+1][x+1].object);
+    }
+    if (board[y][x-1].object.type == type &&
+        board[y+1][x].object.type == type){
+      combo.push(board[y][x-1].object, board[y+1][x].object);
+    }
+    if (board[y-1][x-1].object.type == type &&
+        board[y-1][x].object.type == type){
+      combo.push(board[y-1][x-1].object, board[y-1][x].object);
+    }
+
+    // top left corner
+    if (board[y][x-1].object.type == type &&
+        board[y+1][x-1].object.type == type){
+      combo.push(board[y][x-1].object, board[y+1][x-1].object);
+    }
+    if (board[y][x+1].object.type == type &&
+        board[y+1][x].object.type == type){
+      combo.push(board[y][x+1].object, board[y+1][x].object);
+    }
+    if (board[y-1][x+1].object.type == type &&
+        board[y-1][x].object.type == type){
+      combo.push(board[y-1][x+1].object, board[y-1][x].object);
+    }
+   }
+
+   var checkBotCorner = function(y, x, type){
+    var combo = [];
+    // bot right corner
+    if (board[y+1][x].object.type == type &&
+        board[y+1][x-1].object.type == type){
+      combo.push(board[y+1][x].object, board[y+1][x-1].object);
+    }
+    if (board[y-1][x].object.type == type &&
+        board[y][x-1].object.type == type){
+      combo.push(board[y-1][x].object, board[y][x-1].object);
+    }
+    if (board[y-1][x+1].object.type == type &&
+        board[y][x+1].object.type == type){
+      combo.push(board[y-1][x+1].object, board[y][x+1].object);
+    }
+
+    // bot left corner
+    if (board[y+1][x].object.type == type &&
+        board[y+1][x+1].object.type == type){
+      combo.push(board[y+1][x].object, board[y+1][x+1].object);
+    }
+    if (board[y-1][x].object.type == type &&
+        board[y][x+1].object.type == type){
+      combo.push(board[y-1][x].object, board[y][x+1].object);
+    }
+    if (board[y-1][x-1].object.type == type &&
+        board[y][x-1].object.type == type){
+      combo.push(board[y-1][x-1].object, board[y][x-1].object);
+    }
+   }
+
+   var checkHorizontal = function(y, x, type){
+    var combo = [];
+    if (board[y][x+1].object.type == type &&
+        board[y][x+2].object.type == type){
+      combo.push(board[y][x+1].object, board[y][x+2].object);
+      if (board[y][x-1].object.type == type){
+        combo.push(board[y][x-1].object);
+      }
+    }
+   }
+
 
   // Object enemy
 
@@ -94,11 +143,12 @@ $(document).ready(function(){
   // function to detect player's move
   var playerMove = function(e){
     var $grid = $(e.target);
-    var piece = randomObject();
+    var piece = new object('a');
 
-    console.log(piece);
-    console.log(piece.y + piece.x);
     place($grid, piece);
+    console.log(piece.y + piece.x);
+    console.log(board[piece.y][piece.x]);
+    console.log(board);
     check($grid, piece);
   }
 
