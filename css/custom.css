@@ -29,10 +29,10 @@ td{
   font-family: 'Ropa Sans', sans-serif;
 }
 
-#control td {
+#next {
+  text-align: center;
   padding: 10px;
 }
-
 
 /*Object*/
 .a{
@@ -47,16 +47,16 @@ td{
 .a-info::after{
   content:"Combine three earths into one moon";
 }
-.b-info{
-  content:'Combine three earths into one moon';
+.enemy-info::after{
+  content:'This is an enemy!';
 }
 
-.c-info{
-  content:'Combine three earths into one moon';
+.destruct-info::after{
+  content:'Erase existing object';
 }
 
-.d-info{
-  content:'Combine three earths into one moon';
+.crystal-info::after{
+  content:'Upgrade any two objects';
 }
 
 .e-info{
@@ -114,7 +114,7 @@ td{
   content: url('../img/solar-system.png');
 }
 
-.remove{
+.destruct{
   margin: 0 auto;
   width: 50px;
   height: 50px;

@@ -17,7 +17,7 @@ $(document).ready(function(){
     var that = this;
     var keyCount = 0;
     var nextPiece = new chessPiece();
-    var board = new Array([]);
+    var board = [];
     for (var y=0; y<6; y++){ // initialize board array
       board[y]= [];
       for (var x=0; x<6; x++){
@@ -28,7 +28,11 @@ $(document).ready(function(){
       }
     }
 
+    this.getBoard = function () {
+      return board;
+    }
 
+    // Upgrade conditions
     this.checkTopCorner = function(y, x, type, combo){
       // top right corner
       if (x!=5&&y!=5){
@@ -185,6 +189,9 @@ $(document).ready(function(){
       }
     }
 
+    // Random a piece
+    // set it to global var nextPiece
+    // print img on screen to show next piece
     this.randomPiece = function(){
       var ran = Math.random()*100;
       if (ran<5){
@@ -202,42 +209,53 @@ $(document).ready(function(){
     } // End of randomPiece
 
     this.place = function(e){
-
-      var piece = nextPiece;
-      console.log(piece);
-      var type = piece.getType();
-
+      // get the type of nextPiece
+      var type = nextPiece.getType();
+      // get the clicked grid
       var $grid = $(e.target);
+      // get the x and y coords of clicked grid, convert to num
       var y = Number($grid.parent().attr('data-row'));
       var x = Number($grid.attr('data-column'));
+      // clear the class in that grid html
       $grid.children().removeClass();
+      // add corresponding class in the grid html
       $grid.children().addClass(type);
-      board[y][x].object = piece;
+      // place the piece into board array
+      board[y][x].object = nextPiece;
 
+      // call corresponding function to handle chess piece
       switch (type){
+        // for regular chess pieces
         case 'a': case 'b': case 'c': case 'd': case 'e':
-          that.check($grid, piece, y, x);
+          that.check($grid, type, y, x);
           break;
+        // for 'remove'
         case 'remove':
-          that.removePiece($grid, y, x);
+          that.removePiece($grid, type, y, x);
           break;
-        }
-
+      }
+      // back to playerMove to generate the next chess piece
       that.playerMove();
     }
 
-    this.upgradePiece = function($grid, piece, y, x, combo, type){
+    this.upgradePiece = function($grid, y, x, combo, type){
+      // find out the type of chess piece one level higher
       var newType = String.fromCharCode(type.charCodeAt(0)+1);
+      // dummy var to store new piece
       var newPiece = new chessPiece();
+      // set the dummy var's type
       newPiece.setType(newType);
+
+      // reset the type to blank at upgradable coords
       for (var i=0; i<combo.length; i++){
-        // remove
-        var a = combo[i][0];
-        var b = combo[i][1];
+        var a = combo[i][0]; // y coods
+        var b = combo[i][1]; // x coods
+        // set type to blank
         board[a][b].object.setType('blank');
+        // clear the html class at corresponding grids
         $('[data-row="'+a+'"]').find($('[data-column="'+b+'"]')).find($('div')).removeClass(type);
       }
-        // PLACE
+        // place the higher level piece at the clicked grid
         $grid.children().removeClass();
         $grid.children().addClass(newType);
         board[y][x].object = newPiece;
@@ -248,19 +266,24 @@ $(document).ready(function(){
       board[y][x].object.setType('blank');
     }
 
-    this.check = function($grid, piece, y, x){
+    // check if regular chess pieces could be upgraded
+    this.check = function($grid, type, y, x){
+      // array to store upgradable chess pieces's coords
       var combo = [];
-      var type = piece.getType();
+      // conditions, push upgradable coords to combo array
       that.checkTopCorner(y, x, type, combo);
+
       that.checkBotCorner(y, x, type, combo);
       that.checkVertical(y, x, type, combo);
       that.checkHorizontal(y, x, type, combo);
+      // if there are upgradable coods
       if (combo.length>0){
         if (combo[0]!=undefined){
         // UPGRADE
-          that.upgradePiece($grid, piece, y, x, combo, type);
+          that.upgradePiece($grid, y, x, combo, type);
         }
       }
+      // return to place() after checking and upgrading
     }
 
     this.playerMove = function(){
@@ -272,18 +295,14 @@ $(document).ready(function(){
       that.place(e);
       that.playerMove();
     }
-
-
   } // End of game board
 
   var init = function(){
     var game = new gameBoard();
+    window.debug = game;
     game.randomPiece();
     $('#gameboard').find($('tr')).on('click', game.click);
-
-
   }
-
 
   init();
 // End of script
