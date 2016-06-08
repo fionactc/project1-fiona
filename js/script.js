@@ -154,7 +154,9 @@ $(document).ready(function(){
 
   // initialization
   var init = function(){
-    $('tr').on('click', playerMove);
+    $$('tr').on('click', playerMove);
+    $('#next').append('<img src="img/1.png">');
   }
   init();
+
 })

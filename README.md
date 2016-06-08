@@ -32,3 +32,11 @@
   4.5. Update score (with animation)
 5. Game instructions
 
+7th June 18:34 log:
+<<Not yet finished>>
+1. Reset Button
+2. Enemies
+3. Crystal
+4. 0,0 plate
+5.
+

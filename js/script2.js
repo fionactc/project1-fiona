@@ -14,9 +14,9 @@ $(document).ready(function(){
   // |||||||||GAME BOARD OBJECT ||||||||||
   // |||||||||||||||||||||||||||||||||||||
   var gameBoard = function(){
-
     var that = this;
     var keyCount = 0;
+    var nextPiece = new chessPiece();
     var board = new Array([]);
     for (var y=0; y<6; y++){ // initialize board array
       board[y]= [];
@@ -186,28 +186,44 @@ $(document).ready(function(){
     }
 
     this.randomPiece = function(){
-      var newPiece = new chessPiece();
       var ran = Math.random()*100;
       if (ran<5){
-        newPiece.setType('crystal');
+        nextPiece.setType('crystal');
       } else if (ran>=5&&ran<10){
-        newPiece.setType('remove');
+        nextPiece.setType('remove');
       } else if (ran>=10&&ran<20){
-        newPiece.setType('b');
+        nextPiece.setType('b');
       } else if (ran>=20&&ran<40){
-        newPiece.setType('enemy');
+        nextPiece.setType('enemy');
       } else {
-        newPiece.setType('a');
+        nextPiece.setType('a');
       }
-      return newPiece;
+      $('#next').find($('span')).removeClass().addClass(nextPiece.getType());
     } // End of randomPiece
 
-    this.place = function($grid, piece, y, x){
+    this.place = function(e){
+
+      var piece = nextPiece;
+      console.log(piece);
+      var type = piece.getType();
+
+      var $grid = $(e.target);
+      var y = Number($grid.parent().attr('data-row'));
+      var x = Number($grid.attr('data-column'));
       $grid.children().removeClass();
-      $grid.children().addClass(piece.getType());
+      $grid.children().addClass(type);
       board[y][x].object = piece;
-      // CHECK
-      that.check($grid, piece, y, x);
+
+      switch (type){
+        case 'a': case 'b': case 'c': case 'd': case 'e':
+          that.check($grid, piece, y, x);
+          break;
+        case 'remove':
+          that.removePiece($grid, y, x);
+          break;
+        }
+
+      that.playerMove();
     }
 
     this.upgradePiece = function($grid, piece, y, x, combo, type){
@@ -222,7 +238,14 @@ $(document).ready(function(){
         $('[data-row="'+a+'"]').find($('[data-column="'+b+'"]')).find($('div')).removeClass(type);
       }
         // PLACE
-      that.place($grid, newPiece, y, x);
+        $grid.children().removeClass();
+        $grid.children().addClass(newType);
+        board[y][x].object = newPiece;
+    }
+
+    this.removePiece = function($grid, y, x){
+      $grid.children().removeClass();
+      board[y][x].object.setType('blank');
     }
 
     this.check = function($grid, piece, y, x){
@@ -240,22 +263,27 @@ $(document).ready(function(){
       }
     }
 
-    this.playerMove = function(e){
-      var $grid = $(e.target);
-      var piece = new chessPiece();
-      piece.setType('a');
-      // var piece = that.randomPiece();
-      var y = Number($grid.parent().attr('data-row'));
-      var x = Number($grid.attr('data-column'));
-      var type = piece.getType();
-      that.place($grid, piece, y, x);
+    this.playerMove = function(){
+      that.randomPiece();
+      $('#next').find($('span')).removeClass().addClass(nextPiece.getType());
     }
+
+    this.click = function(e){
+      that.place(e);
+      that.playerMove();
+    }
+
+
   } // End of game board
 
   var init = function(){
     var game = new gameBoard();
-    $('tr').on('click', game.playerMove);
+    game.randomPiece();
+    $('#gameboard').find($('tr')).on('click', game.click);
+
+
   }
+
 
   init();
 // End of script
