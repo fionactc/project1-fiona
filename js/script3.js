@@ -28,6 +28,7 @@ $(document).ready(function(){
       wildCardType = newType;
       $('[data-row="' + this.y + '"][data-column="' + this.x + '"]').find($('div')).attr("class", newType);
       board[this.y][this.x].type = newType;
+      // game.updateScore(newType);
       board[this.y][this.x].checkNeighbours();
     }
 
@@ -102,11 +103,16 @@ $(document).ready(function(){
   }
 
   var gameBoard = function(){
+    // global variable
     var that = this;
     var score = 0;
-    var keyCount = 0;
+    $('#score').html('SCORE: ' + score);
+    var occupiedGrid = 0;
     var nextPieceType = null;
+    var aliens = [];
+    var alienNewPositions = [];
 
+    // utility function
     this.generateObstacles = function(){
       var noOfObstacles = 4;
       for (var i = 0; i<4; i++){
@@ -115,8 +121,8 @@ $(document).ready(function(){
         board[y][x].type = 'obstacle';
         $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).attr("class", 'obstacle');
       }
-
     }
+
     this.randomPiece = function(){
       var ran = Math.random()*100;
       if (ran<5){
@@ -131,9 +137,61 @@ $(document).ready(function(){
         nextPieceType = 'a'
       }
       $('#next').find($('span')).removeClass().addClass(nextPieceType);
-      $('#next').addClass('a-info');
+      $('#next').removeClass().addClass(nextPieceType + '-info');
     }
 
+
+
+    this.updateScore = function(type){
+      switch (type){
+        case 'a':
+          score += 100;
+          break;
+        case 'b':
+          score += 200;
+          break;
+        case 'c':
+          score += 300;
+          break;
+        case 'd':
+          score += 400;
+          break;
+        case 'e':
+          score += 400;
+          break;
+        default:
+          score += 0;
+      }
+      $('#score').html('SCORE: ' + score);
+    }
+
+    this.gameOver = function(){
+      var existingPiece = 0;
+      for (var y=0; y<6; y++){
+        for (var x=0; x<6; x++){
+          if(board[y][x].type!='blank'){
+            existingPiece++;
+          }
+        }
+      }
+      occupiedGrid = existingPiece;
+    }
+
+    this.reset = function(){
+      for (var y=0; y<6; y++){
+        for (var x=0; x<6; x++){
+          board[y][x] = new chessPiece('blank', y, x);
+          $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).removeClass();
+        }
+      }
+      score = 0;
+      $('#score').html('SCORE: ' + score);
+      occupiedGrid = 0;
+      that.generateObstacles();
+      that.randomPiece();
+    }
+
+    // main game play
     this.placeChessPiece = function(e){
       var $grid = $(e.target);
       var targetPiece = null;
@@ -151,6 +209,7 @@ $(document).ready(function(){
 
       $grid.attr("class", "");
       $grid.children().addClass(nextPieceType);
+      this.updateScore(nextPieceType);
 
 
       switch (nextPieceType){
@@ -159,16 +218,26 @@ $(document).ready(function(){
           break;
         case 'crystal':
           targetPiece.wildCard();
+          break;
 
+      }
+      console.log(aliens);
+      that.gameOver();
+
+      if (occupiedGrid==36){
+        that.reset();
       }
     }
 
     this.click = function(e){
       var $grid = $(e.target);
+      that.moveAlien();
       var gridHasClass = !!$grid.attr("class");
       if (!gridHasClass||nextPieceType == 'destruct'){
         that.placeChessPiece(e);
         that.randomPiece();
+        that.scanForAliens();
+        that.alienNextMovement();
       }
     }
 
@@ -180,6 +249,7 @@ $(document).ready(function(){
   var init = function(){
     var game = new gameBoard();
     $('#gameboard').find($('tr')).on('click', 'td', game.click);
+    $('#reset').on('click', game.reset);
   }
   init();
 

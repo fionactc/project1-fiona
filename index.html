@@ -18,87 +18,142 @@
 
   </head>
   <body>
+    <div class='container'>
 
     <h1>SPACEEE</h1>
-    <table id='gameboard'>
-      <tr data-row='0'>
-        <td data-row="0" data-column="0"><div></div></td>
-        <td data-row="0" data-column="1"><div></div></td>
-        <td data-row="0" data-column="2"><div></div></td>
-        <td data-row="0" data-column="3"><div></div></td>
-        <td data-row="0" data-column="4"><div></div></td>
-        <td data-row="0" data-column="5"><div></div></td>
-      </tr>
-      <tr data-row='1'>
-        <td data-row="1" data-column="0"><div></div></td>
-        <td data-row="1" data-column="1"><div></div></td>
-        <td data-row="1" data-column="2"><div></div></td>
-        <td data-row="1" data-column="3"><div></div></td>
-        <td data-row="1" data-column="4"><div></div></td>
-        <td data-row="1" data-column="5"><div></div></td>
-      </tr>
-      <tr data-row='2'>
-        <td data-row="2" data-column="0"><div></div></td>
-        <td data-row="2" data-column="1"><div></div></td>
-        <td data-row="2" data-column="2"><div></div></td>
-        <td data-row="2" data-column="3"><div></div></td>
-        <td data-row="2" data-column="4"><div></div></td>
-        <td data-row="2" data-column="5"><div></div></td>
-      </tr>
-      <tr data-row='3'>
-        <td data-row="3" data-column="0"><div></div></td>
-        <td data-row="3" data-column="1"><div></div></td>
-        <td data-row="3" data-column="2"><div></div></td>
-        <td data-row="3" data-column="3"><div></div></td>
-        <td data-row="3" data-column="4"><div></div></td>
-        <td data-row="3" data-column="5"><div></div></td>
-      </tr>
-       <tr data-row='4'>
-        <td data-row="4" data-column="0"><div></div></td>
-        <td data-row="4" data-column="1"><div></div></td>
-        <td data-row="4" data-column="2"><div></div></td>
-        <td data-row="4" data-column="3"><div></div></td>
-        <td data-row="4" data-column="4"><div></div></td>
-        <td data-row="4" data-column="5"><div></div></td>
-      </tr>
-       <tr data-row='5'>
-        <td data-row="5" data-column="0"><div></div></td>
-        <td data-row="5" data-column="1"><div></div></td>
-        <td data-row="5" data-column="2"><div></div></td>
-        <td data-row="5" data-column="3"><div></div></td>
-        <td data-row="5" data-column="4"><div></div></td>
-        <td data-row="5" data-column="5"><div></div></td>
-      </tr>
-    </table>
-    <table id="control">
-      <tr>
+    <p>By Fiona Cheung</p>
+      <div class="row">
+      <div class="col-xs-7">
+        <table id='gameboard' style="margin-right:0;">
+          <tr data-row='0'>
+            <td data-row="0" data-column="0"><div></div></td>
+            <td data-row="0" data-column="1"><div></div></td>
+            <td data-row="0" data-column="2"><div></div></td>
+            <td data-row="0" data-column="3"><div></div></td>
+            <td data-row="0" data-column="4"><div></div></td>
+            <td data-row="0" data-column="5"><div></div></td>
+          </tr>
+          <tr data-row='1'>
+            <td data-row="1" data-column="0"><div></div></td>
+            <td data-row="1" data-column="1"><div></div></td>
+            <td data-row="1" data-column="2"><div></div></td>
+            <td data-row="1" data-column="3"><div></div></td>
+            <td data-row="1" data-column="4"><div></div></td>
+            <td data-row="1" data-column="5"><div></div></td>
+          </tr>
+          <tr data-row='2'>
+            <td data-row="2" data-column="0"><div></div></td>
+            <td data-row="2" data-column="1"><div></div></td>
+            <td data-row="2" data-column="2"><div></div></td>
+            <td data-row="2" data-column="3"><div></div></td>
+            <td data-row="2" data-column="4"><div></div></td>
+            <td data-row="2" data-column="5"><div></div></td>
+          </tr>
+          <tr data-row='3'>
+            <td data-row="3" data-column="0"><div></div></td>
+            <td data-row="3" data-column="1"><div></div></td>
+            <td data-row="3" data-column="2"><div></div></td>
+            <td data-row="3" data-column="3"><div></div></td>
+            <td data-row="3" data-column="4"><div></div></td>
+            <td data-row="3" data-column="5"><div></div></td>
+          </tr>
+           <tr data-row='4'>
+            <td data-row="4" data-column="0"><div></div></td>
+            <td data-row="4" data-column="1"><div></div></td>
+            <td data-row="4" data-column="2"><div></div></td>
+            <td data-row="4" data-column="3"><div></div></td>
+            <td data-row="4" data-column="4"><div></div></td>
+            <td data-row="4" data-column="5"><div></div></td>
+          </tr>
+           <tr data-row='5'>
+            <td data-row="5" data-column="0"><div></div></td>
+            <td data-row="5" data-column="1"><div></div></td>
+            <td data-row="5" data-column="2"><div></div></td>
+            <td data-row="5" data-column="3"><div></div></td>
+            <td data-row="5" data-column="4"><div></div></td>
+            <td data-row="5" data-column="5"><div></div></td>
+          </tr>
+        </table>
+      </div>
 
-        <td id='next'>
-          <p>Next item:</p>
-          <span></span>
-          <p id='description'></p>
-          <!-- <span class='a-info'></span> -->
-        </td>
-        <td>
-          <button class="btn btn-block">Reset</button>
-          <p id='score'>SCORE: 0</p>
-        </td>
-      </tr>
-    </table>
+      <div class="col-xs-3">
+        <table id="control">
+          <tr>
+            <td style='padding-top: 15px; height: 20px; border-bottom: 0;'>
+              <p>Next item:</p>
+            </td>
+          </tr>
+          <tr>
+            <td id='next' style='padding-top: 10px; border-top:0; '>
+              <span></span>
+              <p id='description'></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class='row'>
+              <div id='score-box' class='col-xs-8'>
+                <p style="height: 57px; padding:20px" id='score'>SCORE: 0</p>
+              </div>
+              <div id='buttons' class='col-xs-4 '>
+              <button id='reset' class="btn"><img src='./img/reload2.png'></button>
+              <!-- <a href='#'><img id='setting' src='./img/settings.png'></a> -->
+              <button id='setting' class="btn" data-toggle='modal' data-target='#myModal'><img id='setting' src='./img/info2.png'></button>
+              </div>
+            </td>
+          </tr>
+          <tr style="height:157px">
+           <td style="padding-top:10px" id='tips'>
+                  <p><img src='./img/1.png'></span> x3 = <img src='./img/2.png'></span></p>
+                  <p><img src='./img/2.png'></span> x3 = <img src='./img/3.png'></span></p>
+                  <p><img src='./img/3.png'></span> x3 = <img src='./img/4.png'></span></p>
+                  <p><img src='./img/4.png'></span> x3 = <img src='./img/5.png'></span></p>
+                </td>
 
-    <table id="instruct">
-      <tr>
-        <td><div class='a'></div></td>
-        <td>-></td>
-        <td><div class='b'></div></td>
-        <td>-></td>
-        <td><div class='c'></div></td>
-        <td>-></td>
-        <td><div class='d'></div></td>
-        <td>-></td>
-        <td><div class='e'></div></td>
-      </tr>
-    </table>
-    <a href="http://www.freepik.com/free-vector/hand-painted-beautiful-galaxy-background_846168.htm">Designed by Freepik</a>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">How to play</h4>
+          </div>
+          <div class="modal-body">
+            <table>
+              <tr>
+                <td style="width: 300px">
+                  <p>Combine the planets</p>
+                </td>
+                <td style="width: 400px">
+                  <p>Combination patterns</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p><span class='a'></span> x3 = <span class='b'></span></p>
+                  <p><span class='b'></span> x3 = <span class='c'></span></p>
+                  <p><span class='c'></span> x3 = <span class='d'></span></p>
+                  <p><span class='d'></span> x3 = <span class='e'></span></p>
+                </td>
+                <td>
+                  <p><img style='height:100px;'src='./img/howto1.png'></p>
+                  <p><img style='height:100px;'src='./img/howto2.png'></p>
+                  <p><img style='height:100px;'src='./img/howto3.png'></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+<!--           <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+ -->        </div>
+      </div>
+    </div>
+
+    </div>
   </body>
 </html>

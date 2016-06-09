@@ -1,13 +1,45 @@
 body {
-  background-image: url('../img/bg2.png');
+  background-image: url('../img/bg7.png');
+  background-size: cover;
   color: white;
+  overflow: hidden;
+  font-family: 'Ropa Sans', sans-serif;
+  text-align: center;
+}
 
+.modal-content{
+  border-radius: 40px;
+  background-color: #FEFCFF;
+  color: #0A2037;
+}
+#tips img{
+  width: 25px;
+
+}
+.modal-content td{
+  color: #0A2037;
+  font-family: 'Ropa Sans', sans-serif;
+  border: 0;
+}
+.btn{
+  background-color: rgba(255, 255, 255, 0);
+}
+.btn img{
+  width: 20px;
+  height: 20px;
+}
+#score-box{
+  margin-left: 10px;
+  border-right: 1px solid #e4e4e4;
+}
+#buttons{
+  margin-left: -10px;
 }
 h1 {
   text-align: center;
   font-family: 'Sigmar One', cursive;
 }
-table {
+#gameboard, #control {
   margin: 30 auto;
   background-color: rgba(255, 255, 255, 0.3);
 }
@@ -25,14 +57,15 @@ td{
   height: 420;
 }
 #control {
-  width: 420px;
+  width: 200px;
   font-family: 'Ropa Sans', sans-serif;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
 #next {
-  padding: 10px;
+  height: 150px;
+  padding: 25px;
 }
 
 /*Object*/
@@ -46,8 +79,13 @@ td{
 }
 
 .a-info::after{
-  content:"Combine three earths into one moon";
+  content:"Combine three earths into moon";
 }
+
+.b-info::after{
+  content:"Combine three moons into mars";
+}
+
 .enemy-info::after{
   content:'This is an enemy!';
 }
@@ -63,7 +101,6 @@ td{
 .e-info{
   content:'Combine three earths into one moon';
 }
-
 
 .b{
   margin: 0 auto;

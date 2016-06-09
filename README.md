@@ -42,16 +42,22 @@
 8th June 21:43 log:
 <<TO DO>>
 1. enemies
-  1.1. random move
-  1.2. if surrounded -> turn into graves
-  1.3. 3 graves -> one big graves
-4. reset button
-5. score
-6. instruction
-7. object description
-8. game over
+  1.1. debug
+  1.2. make an asteroid to destroy them
+2. if destruct AND type = blank, dont do anything
+4. switch place
+5. when crystal place on blank -> stone
+6. score leaderboard
+6. tidy up css
+7. shorthand
 
 //KO
+3. rearrange the layout
+6. instruction
+8. game over
+4. reset button
+5. score
 2. crystal
 3. destruct
 8. generate map obstacle
+7. object description
