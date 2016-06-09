@@ -5,7 +5,7 @@ $(document).ready(function(){
     this.type = type;
     this.y = y === undefined ? '' : y;
     this.x = x === undefined ? '' : x;
-    var wildCardType = null;
+    var wildCardType = 'crystal';
 
     // for debugging
     this.test = function(){
@@ -110,7 +110,6 @@ $(document).ready(function(){
     var occupiedGrid = 0;
     var nextPieceType = null;
     var aliens = [];
-    var alienNewPositions = [];
 
     // utility function
     this.generateObstacles = function(){
@@ -140,7 +139,75 @@ $(document).ready(function(){
       $('#next').removeClass().addClass(nextPieceType + '-info');
     }
 
+    this.scanForAliens = function(){
+      aliens = [];
+      for (var y=0; y<6; y++){
+        for (var x=0; x<6; x++){
+          if(board[y][x].type=='enemy'){
+            aliens.push([y, x]);
+          }
+        }
+      }
+    }
 
+    this.alienNextMovement = function(){
+
+      for (var i=0; i<aliens.length; i++){
+        var newPosition = [];
+        var a = aliens[i][0]; // y coords
+        var b = aliens[i][1]; // x coords
+        // move right
+        if (b!=5){
+          if (board[a][b+1].type == 'blank'){
+            // alienNewPositions[i][0] = a;
+            // alienNewPositions[i][1] = b+1;
+            // alienNewPosition = [a, b+1];
+            newPosition=[a, b+1];
+          }
+        }
+        // move top
+        if (a!=0){
+          if (board[a-1][b].type == 'blank'){
+            // alienNewPositions[i][0] = a-1;
+            // alienNewPositions[i][1] = b;
+            newPosition = [a-1, b];
+          }
+        }
+        // move left
+        if (b!=0){
+          if (board[a][b-1].type == 'blank'){
+            // alienNewPositions[i][0] = a;
+            // alienNewPositions[i][1] = b-1;
+            newPosition = [a, b-1];
+          }
+        }
+        // move bottom
+        if (a!=5){
+          if (board[a+1][b].type == 'blank'){
+            // alienNewPositions[i][0] = a+1;
+            // alienNewPositions[i][1] = b;
+            newPosition = [a+1, b];
+          }
+        }
+        if (newPosition.length == 2){
+          board[a][b].type = 'blank'
+          $('[data-row="' + a + '"][data-column="' + b + '"]').find($('div')).removeClass();
+          board[newPosition[0]][newPosition[1]].type = 'enemy';
+            $('[data-row="' + newPosition[0] + '"][data-column="' + newPosition[1] + '"]').find($('div')).attr('class', 'enemy');
+        }
+      }
+    }
+
+    this.turnToStone = function(){
+      for (var y=0; y<6; y++){
+        for (var x=0; x<6; x++){
+          if(board[y][x].type=='crystal'){
+            board[y][x].type = 'obstacle';
+            $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).attr('class', 'obstacle');
+          }
+        }
+      }
+    }
 
     this.updateScore = function(type){
       switch (type){
@@ -231,13 +298,16 @@ $(document).ready(function(){
 
     this.click = function(e){
       var $grid = $(e.target);
-      that.moveAlien();
       var gridHasClass = !!$grid.attr("class");
       if (!gridHasClass||nextPieceType == 'destruct'){
         that.placeChessPiece(e);
+        that.turnToStone();
         that.randomPiece();
-        that.scanForAliens();
-        that.alienNextMovement();
+        setTimeout(function(){
+          that.scanForAliens();
+          that.alienNextMovement();
+
+        }, 2000);
       }
     }
 
