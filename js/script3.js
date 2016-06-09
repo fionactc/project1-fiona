@@ -5,6 +5,7 @@ $(document).ready(function(){
     this.type = type;
     this.y = y === undefined ? '' : y;
     this.x = x === undefined ? '' : x;
+    var wildCardType = null;
 
     // for debugging
     this.test = function(){
@@ -19,7 +20,15 @@ $(document).ready(function(){
         var x = coord[1];
         board[y][x].type = "blank";
         // css
+        $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).removeClass();
       });
+    }
+    this.upgradePiece = function(type){
+      var newType = String.fromCharCode(type.charCodeAt(0)+1);
+      wildCardType = newType;
+      $('[data-row="' + this.y + '"][data-column="' + this.x + '"]').find($('div')).attr("class", newType);
+      board[this.y][this.x].type = newType;
+      board[this.y][this.x].checkNeighbours();
     }
 
     this.checkNeighbours = function (fromDirection, checkType){
@@ -52,31 +61,43 @@ $(document).ready(function(){
         return 1 + totalCounter;
       } else {
         console.log(totalCounter);
-        if (totalCounter >= 2) { // 2 because excluding self
+        if (totalCounter >= 2) {
           console.log("triple")
           this.removeSameType();
           // upgrade()
+          this.upgradePiece(checkType);
         } else {
           coordsToRemove = [];
         }
       }
     }
 
-    this.destructPiece = function ($grid){
-      $grid.removeClass();
-      board[this.y][this.x].type = 'blank';
+    this.wildCard = function(){
+      this.type = 'a';
+      this.checkNeighbours();
+      this.type = 'b';
+      this.checkNeighbours();
+      this.type = 'c';
+      this.checkNeighbours();
+      this.type = 'd';
+      this.checkNeighbours();
+      this.type = 'e';
+      this.checkNeighbours();
+      this.type = wildCardType;
     }
+
   }
 
   // |||||||||||||||||||||||||||||||||||||
   // |||||||||GAME BOARD OBJECT ||||||||||
   // |||||||||||||||||||||||||||||||||||||
 
-  var board = [];
-  for (var y=0; y<6; y++){ // initialize board array
+  var board = []; // initialize board array
+  for (var y=0; y<6; y++){
     board[y]= [];
     for (var x=0; x<6; x++){
       board[y][x] = new chessPiece('blank', y, x);
+
     }
   }
 
@@ -86,6 +107,16 @@ $(document).ready(function(){
     var keyCount = 0;
     var nextPieceType = null;
 
+    this.generateObstacles = function(){
+      var noOfObstacles = 4;
+      for (var i = 0; i<4; i++){
+        var y = Math.floor(Math.random()*6);
+        var x = Math.floor(Math.random()*6);
+        board[y][x].type = 'obstacle';
+        $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).attr("class", 'obstacle');
+      }
+
+    }
     this.randomPiece = function(){
       var ran = Math.random()*100;
       if (ran<5){
@@ -105,43 +136,44 @@ $(document).ready(function(){
 
     this.placeChessPiece = function(e){
       var $grid = $(e.target);
-      var gridHasClass = !!$grid.attr("class");
-
-      if (gridHasClass) {
-        console.log("ocupied")
+      var targetPiece = null;
+      if (nextPieceType=='destruct'){
+        var row = $grid.parent().data('row');
+        var col = $grid.parent().data('column');
       } else {
         var row = $grid.data('row');
         var col = $grid.data('column');
-        var targetPiece = board[row][col];
+      }
 
-        targetPiece.type = nextPieceType;
+      targetPiece = board[row][col];
 
-        $grid.attr("class", "");
-        $grid.children().addClass(nextPieceType);
-        // if (nextPieceType === 'destruct'){
-        // } else if (nextPieceType === 'a'){
-        // } else if (nextPieceType === 'b'){
-        // }
-        // execute when destruct
-        // execute when NOT DESTRUCT
+      targetPiece.type = nextPieceType;
 
-        switch (nextPieceType){
-          case 'a': case 'b':
-            targetPiece.checkNeighbours();
-            break;
-          // case 'destruct':
-          //   nextPiece.destructPiece($grid);
-          //   break;
-        }
+      $grid.attr("class", "");
+      $grid.children().addClass(nextPieceType);
+
+
+      switch (nextPieceType){
+        case 'a': case 'b':
+          targetPiece.checkNeighbours();
+          break;
+        case 'crystal':
+          targetPiece.wildCard();
+
       }
     }
 
     this.click = function(e){
-      that.placeChessPiece(e);
-      that.randomPiece();
+      var $grid = $(e.target);
+      var gridHasClass = !!$grid.attr("class");
+      if (!gridHasClass||nextPieceType == 'destruct'){
+        that.placeChessPiece(e);
+        that.randomPiece();
+      }
     }
 
     // run on instantiate
+    this.generateObstacles();
     this.randomPiece();
   } // end of gameBoard
 

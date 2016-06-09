@@ -38,5 +38,20 @@
 2. Enemies
 3. Crystal
 4. 0,0 plate
-5.
 
+8th June 21:43 log:
+<<TO DO>>
+1. enemies
+  1.1. random move
+  1.2. if surrounded -> turn into graves
+  1.3. 3 graves -> one big graves
+4. reset button
+5. score
+6. instruction
+7. object description
+8. game over
+
+//KO
+2. crystal
+3. destruct
+8. generate map obstacle
