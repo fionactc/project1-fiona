@@ -7,13 +7,6 @@ $(document).ready(function(){
     this.x = x === undefined ? '' : x;
     var wildCardType = 'crystal';
 
-    // for debugging
-    this.test = function(){
-      console.log('type is ' + this.type);
-      console.log('y is ' + this.y);
-      console.log(board[this.y][this.x]);
-    }
-
     this.removeSameType = function () {
       coordsToRemove.forEach(function(coord){
         var y = coord[0];
@@ -320,7 +313,14 @@ $(document).ready(function(){
 
     $('.reset').on('click', game.reset);
   }
+  var human = $('#human');
+  function animation(){
+    human.animate({top:'+=20'}, 1000);
+    human.animate({top:'-=20'}, 1000, animation);
+  }
+
   init();
+  animation();
 
   window.board = board;
   window.coordsToRemove = coordsToRemove;
