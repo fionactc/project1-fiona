@@ -232,7 +232,7 @@ $(document).ready(function(){
       $('#score').html('SCORE: ' + score);
     }
 
-    this.gameOver = function(){
+    this.checkOccupiedGrid = function(){
       var existingPiece = 0;
       for (var y=0; y<6; y++){
         for (var x=0; x<6; x++){
@@ -244,6 +244,10 @@ $(document).ready(function(){
       occupiedGrid = existingPiece;
     }
 
+    this.gameOver = function(){
+      $('#gameOverModal').modal('show');
+      // $('#gameOverModal').show();
+    }
     this.reset = function(){
       for (var y=0; y<6; y++){
         for (var x=0; x<6; x++){
@@ -289,10 +293,11 @@ $(document).ready(function(){
 
       }
       console.log(aliens);
-      that.gameOver();
+      that.checkOccupiedGrid();
 
       if (occupiedGrid==36){
-        that.reset();
+        that.gameOver();
+        // that.reset();
       }
     }
 
@@ -319,6 +324,7 @@ $(document).ready(function(){
   var init = function(){
     var game = new gameBoard();
     $('#gameboard').find($('tr')).on('click', 'td', game.click);
+
     $('#reset').on('click', game.reset);
   }
   init();

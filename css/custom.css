@@ -16,6 +16,9 @@ body {
   width: 25px;
 
 }
+.col-xs-4 img{
+  margin: 0 auto;
+}
 .modal-content td{
   color: #0A2037;
   font-family: 'Ropa Sans', sans-serif;
@@ -91,11 +94,11 @@ td{
 }
 
 .destruct-info::after{
-  content:'Erase existing object';
+  content:'Bomb and erase any enemy or planets';
 }
 
 .crystal-info::after{
-  content:'Upgrade any two objects';
+  content:'Upgrade any two planets';
 }
 
 .e-info{
