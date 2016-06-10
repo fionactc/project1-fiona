@@ -113,8 +113,8 @@ $(document).ready(function(){
 
     // utility function
     this.generateObstacles = function(){
-      var noOfObstacles = 4;
-      for (var i = 0; i<4; i++){
+      var noOfObstacles = 10;
+      for (var i = 0; i<noOfObstacles; i++){
         var y = Math.floor(Math.random()*6);
         var x = Math.floor(Math.random()*6);
         board[y][x].type = 'obstacle';
@@ -130,7 +130,7 @@ $(document).ready(function(){
         nextPieceType = 'destruct';
       } else if (ran>=10&&ran<20){
         nextPieceType = 'b';
-      } else if (ran>=20&&ran<40){
+      } else if (ran>=20&&ran<30){
         nextPieceType = 'enemy';
       } else {
         nextPieceType = 'a'
@@ -159,33 +159,24 @@ $(document).ready(function(){
         // move right
         if (b!=5){
           if (board[a][b+1].type == 'blank'){
-            // alienNewPositions[i][0] = a;
-            // alienNewPositions[i][1] = b+1;
-            // alienNewPosition = [a, b+1];
             newPosition=[a, b+1];
           }
         }
         // move top
         if (a!=0){
           if (board[a-1][b].type == 'blank'){
-            // alienNewPositions[i][0] = a-1;
-            // alienNewPositions[i][1] = b;
             newPosition = [a-1, b];
           }
         }
         // move left
         if (b!=0){
           if (board[a][b-1].type == 'blank'){
-            // alienNewPositions[i][0] = a;
-            // alienNewPositions[i][1] = b-1;
             newPosition = [a, b-1];
           }
         }
         // move bottom
         if (a!=5){
           if (board[a+1][b].type == 'blank'){
-            // alienNewPositions[i][0] = a+1;
-            // alienNewPositions[i][1] = b;
             newPosition = [a+1, b];
           }
         }
@@ -245,6 +236,7 @@ $(document).ready(function(){
     }
 
     this.gameOver = function(){
+      $('#finalScore').html("Your score is " + score);
       $('#gameOverModal').modal('show');
       // $('#gameOverModal').show();
     }
@@ -260,6 +252,7 @@ $(document).ready(function(){
       occupiedGrid = 0;
       that.generateObstacles();
       that.randomPiece();
+      $('#gameOverModal').modal('hide');
     }
 
     // main game play
@@ -325,7 +318,7 @@ $(document).ready(function(){
     var game = new gameBoard();
     $('#gameboard').find($('tr')).on('click', 'td', game.click);
 
-    $('#reset').on('click', game.reset);
+    $('.reset').on('click', game.reset);
   }
   init();
 

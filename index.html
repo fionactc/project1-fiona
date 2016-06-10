@@ -96,7 +96,7 @@
                 <p style="height: 57px; padding:20px" id='score'>SCORE: 0</p>
               </div>
               <div id='buttons' class='col-xs-4 '>
-              <button id='reset' class="btn"><img src='./img/reload2.png'></button>
+              <button class="btn reset"><img src='./img/reload2.png'></button>
               <!-- <a href='#'><img id='setting' src='./img/settings.png'></a> -->
               <button id='setting' class="btn" data-toggle='modal' data-target='#myModal'><img id='setting' src='./img/info2.png'></button>
               </div>
@@ -168,9 +168,15 @@
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <h2>Game Over!</h2>
+          <p id="finalScore"></p>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-primary reset">New game</button>
         </div>
+        </div>
+
       </div>
     </div>
+    <!-- End of modal -->
     </div>
   </body>
 </html>

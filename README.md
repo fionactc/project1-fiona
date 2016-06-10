@@ -43,6 +43,7 @@
 <<TO DO>>
 2. if destruct AND type = blank, dont do anything
 4. debug click event
+5. credits
 6. gameOver alert
 
 4. switch place
