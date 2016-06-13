@@ -105,13 +105,16 @@ $(document).ready(function(){
     var aliens = [];
 
     // utility function
+    this.findDiv = function(y, x){
+      return $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div'));
+    }
     this.generateObstacles = function(){
       var noOfObstacles = 10;
       for (var i = 0; i<noOfObstacles; i++){
         var y = Math.floor(Math.random()*6);
         var x = Math.floor(Math.random()*6);
         board[y][x].type = 'obstacle';
-        $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).attr("class", 'obstacle');
+        that.findDiv(y, x).attr("class", 'obstacle');
       }
     }
 
@@ -142,7 +145,11 @@ $(document).ready(function(){
         }
       }
     }
-
+    this.moveAlien = function(y, x, newPosition){
+      if(board[y][x].type=== 'blank'){
+        return newPosition=[y, x];
+      }
+    }
     this.alienNextMovement = function(){
 
       for (var i=0; i<aliens.length; i++){
@@ -150,44 +157,49 @@ $(document).ready(function(){
         var a = aliens[i][0]; // y coords
         var b = aliens[i][1]; // x coords
         // move right
-        if (b!=5){
-          if (board[a][b+1].type == 'blank'){
+        if (b!==5){
+          // that.moveAlien(a, b+1, newPosition);
+          if (board[a][b+1].type === 'blank'){
             newPosition=[a, b+1];
           }
         }
         // move top
-        if (a!=0){
-          if (board[a-1][b].type == 'blank'){
+        if (a!==0){
+          // that.moveAlien(a-1, b, newPosition);
+          if (board[a-1][b].type === 'blank'){
             newPosition = [a-1, b];
           }
         }
         // move left
-        if (b!=0){
-          if (board[a][b-1].type == 'blank'){
+        if (b!==0){
+          // that.moveAlien(a, b-1, newPosition);
+          if (board[a][b-1].type === 'blank'){
             newPosition = [a, b-1];
           }
         }
         // move bottom
-        if (a!=5){
-          if (board[a+1][b].type == 'blank'){
+        if (a!==5){
+          // that.moveAlien(a+1, b, newPosition);
+          if (board[a+1][b].type === 'blank'){
             newPosition = [a+1, b];
           }
         }
         if (newPosition.length == 2){
           board[a][b].type = 'blank'
-          $('[data-row="' + a + '"][data-column="' + b + '"]').find($('div')).removeClass();
+          that.findDiv(a, b).removeClass();
           board[newPosition[0]][newPosition[1]].type = 'enemy';
             $('[data-row="' + newPosition[0] + '"][data-column="' + newPosition[1] + '"]').find($('div')).attr('class', 'enemy');
         }
       }
     }
 
+
     this.turnToStone = function(){
       for (var y=0; y<6; y++){
         for (var x=0; x<6; x++){
           if(board[y][x].type=='crystal'){
             board[y][x].type = 'obstacle';
-            $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).attr('class', 'obstacle');
+            that.findDiv(y, x).find($('div')).attr('class', 'obstacle');
           }
         }
       }
@@ -237,7 +249,7 @@ $(document).ready(function(){
       for (var y=0; y<6; y++){
         for (var x=0; x<6; x++){
           board[y][x] = new chessPiece('blank', y, x);
-          $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div')).removeClass();
+          that.findDiv(y, x).removeClass();
         }
       }
       score = 0;
@@ -256,8 +268,8 @@ $(document).ready(function(){
         var row = $grid.parent().data('row');
         var col = $grid.parent().data('column');
       } else {
-        var row = $grid.data('row');
-        var col = $grid.data('column');
+        row = $grid.data('row');
+        col = $grid.data('column');
       }
 
       targetPiece = board[row][col];
