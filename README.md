@@ -38,5 +38,32 @@
 2. Enemies
 3. Crystal
 4. 0,0 plate
-5.
 
+8th June 21:43 log:
+<<TO DO>>
+2. if destruct AND type = blank, dont do anything
+4. debug click event
+5. credits
+6. gameOver alert
+
+4. switch place
+6. score leaderboard
+6. tidy up css
+7. shorthand
+
+//KO
+5. instruction layout
+3. object description
+5. when crystal place on blank -> stone
+1. enemies
+  1.1. debug
+  1.2. make an asteroid to destroy them
+3. rearrange the layout
+6. instruction
+8. game over
+4. reset button
+5. score
+2. crystal
+3. destruct
+8. generate map obstacle
+7. object description

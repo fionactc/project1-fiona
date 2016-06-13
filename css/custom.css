@@ -1,13 +1,114 @@
 body {
-  background-image: url('../img/bg2.png');
+  background-image: url('../img/bg8.png');
+  background-size: cover;
   color: white;
+  overflow: hidden;
+  font-family: 'Ropa Sans', sans-serif;
+  text-align: center;
+}
 
+#human {
+  /*background-image: url('../img/human.png');
+  background-position: 0 65%;
+  background-repeat: no-repeat;
+  */
+  position: absolute;
+  width: 120px;
+  margin-left: -340px;
+  margin-top: 180px;
+/*  margin-left: -50px;
+  margin-top: 130px;*/
+  z-index: -1;
+}
+
+.floating{
+    float: left;
+    -webkit-animation-name: Floatingx;
+    -webkit-animation-duration: 20s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: Floating;
+    -moz-animation-duration: 20s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+
+}
+
+@-webkit-keyframes Floatingx{
+    from {-webkit-transform:translate(0, 0px);}
+    65% {-webkit-transform:translate(0, 10px);}
+    to {-webkit-transform: translate(0, -0px);    }
+}
+
+@-moz-keyframes Floating{
+    from {-moz-transform:translate(0, 0px);}
+    65% {-moz-transform:translate(0, 10px);}
+    to {-moz-transform: translate(0, -0px);}
+}
+
+.scaling{
+    float: left;
+    -webkit-animation-name: scalex;
+    -webkit-animation-duration:3s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:ease-in-out;
+    -moz-animation-name: scale;
+    -moz-animation-duration:3s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-timing-function:ease-in-out;
+}
+
+    @-webkit-keyframes scalex{
+        from {-webkit-transform: scale(0.9);}
+        65% {-webkit-transform: scale(1.0);}
+        to {-webkit-transform: scale(0.9);}
+    }
+
+    @-moz-keyframes scale{
+        from {-moz-transform: scale(0.9);}
+        65% {-moz-transform: scale(1.0);}
+        to {-moz-transform: scale(0.9);}
+    }
+
+.modal-content{
+  border-radius: 40px;
+  background-color: #FEFCFF;
+  color: #0A2037;
+}
+#tips img{
+  width: 25px;
+
+}
+.col-xs-4 img{
+  margin: 0 auto;
+}
+.modal-content td{
+  color: #0A2037;
+  font-family: 'Ropa Sans', sans-serif;
+  border: 0;
+}
+.btn{
+  background-color: rgba(255, 255, 255, 0);
+}
+.btn img{
+  width: 20px;
+  height: 20px;
+}
+#score-box{
+  margin-left: 10px;
+  border-right: 1px solid #e4e4e4;
+}
+#buttons{
+  margin-left: -10px;
 }
 h1 {
   text-align: center;
-  font-family: 'Sigmar One', cursive;
+  /*font-family: 'Sigmar One', cursive;*/
+  font-family: 'Voltaire', sans-serif;
 }
-table {
+#gameboard, #control {
   margin: 30 auto;
   background-color: rgba(255, 255, 255, 0.3);
 }
@@ -25,14 +126,16 @@ td{
   height: 420;
 }
 #control {
-  width: 420px;
+  width: 200px;
   font-family: 'Ropa Sans', sans-serif;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-#control td {
-  padding: 10px;
+#next {
+  height: 150px;
+  padding: 25px;
 }
-
 
 /*Object*/
 .a{
@@ -45,24 +148,28 @@ td{
 }
 
 .a-info::after{
-  content:"Combine three earths into one moon";
-}
-.b-info{
-  content:'Combine three earths into one moon';
+  content:"Combine three earths into moon";
 }
 
-.c-info{
-  content:'Combine three earths into one moon';
+.b-info::after{
+  content:"Combine three moons into mars";
 }
 
-.d-info{
-  content:'Combine three earths into one moon';
+.enemy-info::after{
+  content:'This is an enemy!';
+}
+
+.destruct-info::after{
+  content:'Bomb and erase any enemy or planets';
+}
+
+.crystal-info::after{
+  content:'Upgrade any two planets';
 }
 
 .e-info{
   content:'Combine three earths into one moon';
 }
-
 
 .b{
   margin: 0 auto;
@@ -114,11 +221,18 @@ td{
   content: url('../img/solar-system.png');
 }
 
-.remove{
+.destruct{
   margin: 0 auto;
   width: 50px;
   height: 50px;
-  content: url('../img/lander.png');
+  content: url('../img/meteorites.png');
+}
+
+.obstacle{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  content: url('../img/obstacle.png');
 }
 
 #instruct {
