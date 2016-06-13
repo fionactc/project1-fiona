@@ -23,11 +23,11 @@
     <div class='container'>
 
     <h1>Triple Planet</h1>
-    <p>By Fiona Cheung || <a style='color:white;'href="http://www.freepik.com">Designed by Freepik</a></p>
+    <p>By Fiona Cheung || <a href="http://www.freepik.com">Designed by Freepik</a></p>
 
       <div class="col-xs-7">
         <img src='./img/human.png' id='human' class='floating'>
-        <table id='gameboard' style="margin-right:0;">
+        <table id='gameboard'>
           <tr data-row='0'>
             <td data-row="0" data-column="0"><div></div></td>
             <td data-row="0" data-column="1"><div></div></td>
@@ -82,12 +82,12 @@
       <div class="col-xs-3">
         <table id="control">
           <tr>
-            <td style='padding-top: 15px; height: 20px; border-bottom: 0;'>
+            <td id='next-title'>
               <p>Next item:</p>
             </td>
           </tr>
           <tr>
-            <td id='next' style='padding-top: 10px; border-top:0; '>
+            <td id='next-item'>
               <span></span>
               <p id='description'></p>
             </td>
@@ -96,17 +96,16 @@
             <td>
               <div class='row'>
               <div id='score-box' class='col-xs-8'>
-                <p style="height: 57px; padding:20px" id='score'>SCORE: 0</p>
+                <p id='score'>SCORE: 0</p>
               </div>
               <div id='buttons' class='col-xs-4 '>
-              <button class="btn reset"><img src='./img/reload2.png'></button>
-              <!-- <a href='#'><img id='setting' src='./img/settings.png'></a> -->
-              <button id='setting' class="btn" data-toggle='modal' data-target='#myModal'><img id='setting' src='./img/info2.png'></button>
+                <button class="btn reset"><img src='./img/reload2.png'></button>
+                <button id='setting' class="btn" data-toggle='modal' data-target='#instructions'><img id='setting' src='./img/info2.png'></button>
               </div>
             </td>
           </tr>
-          <tr style="height:157px">
-           <td style="padding-top:10px" id='tips'>
+          <tr id='tips'>
+           <td>
                   <p><img src='./img/1.png'></span> x3 = <img src='./img/2.png'></span></p>
                   <p><img src='./img/2.png'></span> x3 = <img src='./img/3.png'></span></p>
                   <p><img src='./img/3.png'></span> x3 = <img src='./img/4.png'></span></p>
@@ -119,8 +118,8 @@
       </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" style="width: 550px;" role="document">
+    <div class="modal fade" id="instructions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -161,10 +160,7 @@
               </tr>
             </table>
           </div>
-<!--           <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
- -->        </div>
+        </div>
       </div>
     </div>
 

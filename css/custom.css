@@ -7,17 +7,13 @@ body {
   text-align: center;
 }
 
+/*Header & graphics*/
+
 #human {
-  /*background-image: url('../img/human.png');
-  background-position: 0 65%;
-  background-repeat: no-repeat;
-  */
   position: absolute;
   width: 120px;
   margin-left: -340px;
   margin-top: 180px;
-/*  margin-left: -50px;
-  margin-top: 130px;*/
   z-index: -1;
 }
 
@@ -48,66 +44,15 @@ body {
     to {-moz-transform: translate(0, -0px);}
 }
 
-.scaling{
-    float: left;
-    -webkit-animation-name: scalex;
-    -webkit-animation-duration:3s;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-timing-function:ease-in-out;
-    -moz-animation-name: scale;
-    -moz-animation-duration:3s;
-    -moz-animation-iteration-count:infinite;
-    -moz-animation-timing-function:ease-in-out;
-}
-
-    @-webkit-keyframes scalex{
-        from {-webkit-transform: scale(0.9);}
-        65% {-webkit-transform: scale(1.0);}
-        to {-webkit-transform: scale(0.9);}
-    }
-
-    @-moz-keyframes scale{
-        from {-moz-transform: scale(0.9);}
-        65% {-moz-transform: scale(1.0);}
-        to {-moz-transform: scale(0.9);}
-    }
-
-.modal-content{
-  border-radius: 40px;
-  background-color: #FEFCFF;
-  color: #0A2037;
-}
-#tips img{
-  width: 25px;
-
-}
-.col-xs-4 img{
-  margin: 0 auto;
-}
-.modal-content td{
-  color: #0A2037;
-  font-family: 'Ropa Sans', sans-serif;
-  border: 0;
-}
-.btn{
-  background-color: rgba(255, 255, 255, 0);
-}
-.btn img{
-  width: 20px;
-  height: 20px;
-}
-#score-box{
-  margin-left: 10px;
-  border-right: 1px solid #e4e4e4;
-}
-#buttons{
-  margin-left: -10px;
-}
 h1 {
   text-align: center;
-  /*font-family: 'Sigmar One', cursive;*/
   font-family: 'Voltaire', sans-serif;
 }
+
+p a{
+  color: white;
+}
+/*gameboard*/
 #gameboard, #control {
   margin: 30 auto;
   background-color: rgba(255, 255, 255, 0.3);
@@ -117,14 +62,11 @@ td{
   width: 70px;
   border: 1px solid #e4e4e4;
 }
-.follow{
-  position: absolute;
-  height: 70px;
-  width: 70px;
-}
 #gameboard {
   height: 420;
+  margin-right: 0;
 }
+/*control panel*/
 #control {
   width: 200px;
   font-family: 'Ropa Sans', sans-serif;
@@ -132,51 +74,91 @@ td{
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-#next {
-  height: 150px;
-  padding: 25px;
+#next-title {
+  padding-top: 15px;
+  height: 20px;
+  border-bottom:0;
 }
 
-/*Object*/
+#next-item {
+  height: 150px;
+  padding: 25px;
+  padding-top: 10px;
+  border-top: 0;
+}
+
+#control .btn {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#control .btn img{
+  width: 20px;
+  height: 20px;
+}
+
+#score-box{
+  margin-left: 10px;
+  border-right: 1px solid #e4e4e4;
+}
+
+#score-box p{
+  height: 57px;
+  padding: 20px;
+}
+
+#tips {
+  height: 157px;
+}
+
+#tips td{
+  padding-top: 10px;
+}
+
+#tips img{
+  width: 25px;
+}
+
+#buttons{
+  margin-left: -10px;
+}
+/*Instruction Modal*/
+.modal-content{
+  border-radius: 40px;
+  background-color: #FEFCFF;
+  color: #0A2037;
+}
+
+#instruction .modal-dialog{
+  width: 550px;
+}
+
+#instructions td{
+  color: #0A2037;
+  font-family: 'Ropa Sans', sans-serif;
+  border: 0;
+}
+
+/*Gameover Modal*/
+
+
+
+/*Uncategorized*/
+
+
+
+
+/*Javascript*/
 .a{
   margin: 0 auto;
   width: 50px;
   height: 50px;
-  /*border-radius: 30px;*/
-  /*background: #11d1c8;*/
   content: url('../img/1.png');
-}
-
-.a-info::after{
-  content:"Combine three earths into moon";
-}
-
-.b-info::after{
-  content:"Combine three moons into mars";
-}
-
-.enemy-info::after{
-  content:'This is an enemy!';
-}
-
-.destruct-info::after{
-  content:'Bomb and erase any enemy or planets';
-}
-
-.crystal-info::after{
-  content:'Upgrade any two planets';
-}
-
-.e-info{
-  content:'Combine three earths into one moon';
 }
 
 .b{
   margin: 0 auto;
   width: 50px;
   height: 50px;
-  /*border-radius: 30px;
-  background: #dd86ff;*/
   content: url('../img/2.png');
 }
 
@@ -184,8 +166,6 @@ td{
   margin: 0 auto;
   width: 50px;
   height: 50px;
-  /*border-radius: 30px;
-  background: #ff77b1;*/
   content: url('../img/3.png');
 }
 
@@ -193,8 +173,6 @@ td{
   margin: 0 auto;
   width: 50px;
   height: 50px;
-  /*border-radius: 30px;*/
-  /*background: #ffa268;*/
   content: url('../img/4.png');
 }
 
@@ -202,8 +180,6 @@ td{
   margin: 0 auto;
   width: 50px;
   height: 50px;
-  /*border-radius: 30px;*/
-  /*background: #ffd271;*/
   content: url('../img/5.png');
 }
 
@@ -235,14 +211,23 @@ td{
   content: url('../img/obstacle.png');
 }
 
-#instruct {
-  height: 50px;
-}
-/*.container{
-  width: 700px;
+.a-info::after{
+  content:"Combine three earths into moon";
 }
 
-.col-xs-1 {
-  border: 1px solid red;
-  height:100px;
-}*/
+.b-info::after{
+  content:"Combine three moons into mars";
+}
+
+.enemy-info::after{
+  content:'This is an enemy!';
+}
+
+.destruct-info::after{
+  content:'Bomb and erase any enemy or planets';
+}
+
+.crystal-info::after{
+  content:'Upgrade any two planets';
+}
+

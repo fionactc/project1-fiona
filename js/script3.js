@@ -104,7 +104,7 @@ $(document).ready(function(){
     var nextPieceType = null;
     var aliens = [];
 
-    // utility function
+    // utilities
     this.findDiv = function(y, x){
       return $('[data-row="' + y + '"][data-column="' + x + '"]').find($('div'));
     }
@@ -116,7 +116,6 @@ $(document).ready(function(){
         var x = Math.floor(Math.random()*6);
         board[y][x].type = 'obstacle';
         that.findDiv(y, x).attr("class", 'obstacle');
-
       }
     }
 
@@ -133,8 +132,8 @@ $(document).ready(function(){
       } else {
         nextPieceType = 'a'
       }
-      $('#next').find($('span')).removeClass().addClass(nextPieceType);
-      $('#next').removeClass().addClass(nextPieceType + '-info');
+      $('#next-item').find($('span')).removeClass().addClass(nextPieceType);
+      $('#next-item').removeClass().addClass(nextPieceType + '-info');
     }
 
     this.scanForAliens = function(){
@@ -148,61 +147,63 @@ $(document).ready(function(){
       }
     }
 
+
     this.alienNextMovement = function(){
 
-      for (var i=0; i<aliens.length; i++){
+      for (var i in aliens){
         var newPosition = [];
         var a = aliens[i][0]; // y coords
         var b = aliens[i][1]; // x coords
+
         // move right
-
-        if (b!==5){
+        if (b!==5 && board[a][b+1].type ==='blank'){
           // that.moveAlien(a, b+1, newPosition);
-          if (board[a][b+1].type === 'blank'){
-            newPosition=[a, b+1];
-          }
+           newPosition=[a, b+1];
+          // if (board[a][b+1].type === 'blank'){
+          //   newPosition=[a, b+1];
+          // }
         }
+
         // move top
-
-        if (a!==0){
+        if (a!==0&&board[a-1][b].type ==='blank'){
           // that.moveAlien(a-1, b, newPosition);
-          if (board[a-1][b].type === 'blank'){
-            newPosition = [a-1, b];
-          }
+           newPosition=[a-1, b];
+          // if (board[a-1][b].type === 'blank'){
+          //   newPosition = [a-1, b];
+          // }
         }
+
         // move left
-
-        if (b!==0){
+        if (b!==0&&board[a][b-1].type ==='blank'){
           // that.moveAlien(a, b-1, newPosition);
-          if (board[a][b-1].type === 'blank'){
-
-            newPosition = [a, b-1];
-          }
+           newPosition=[a, b-1];
+          // if (board[a][b-1].type === 'blank'){
+          //   newPosition = [a, b-1];
+          // }
         }
+
         // move bottom
-        if (a!==5){
-          // that.moveAlien(a+1, b, newPosition);
-          if (board[a+1][b].type === 'blank'){
-
-            newPosition = [a+1, b];
+        if (a!==5&&board[a+1][b].type ==='blank'){
+           newPosition=[a+1, b];
+          // if (board[a+1][b].type === 'blank'){
+          //   newPosition = [a+1, b];
           }
         }
-        if (newPosition.length == 2){
+        if (newPosition.length === 2){
           board[a][b].type = 'blank'
-
           that.findDiv(a, b).removeClass();
-
           board[newPosition[0]][newPosition[1]].type = 'enemy';
-            $('[data-row="' + newPosition[0] + '"][data-column="' + newPosition[1] + '"]').find($('div')).attr('class', 'enemy');
+
+            that.findDiv(newPosition[0], newPosition[1]).attr('class', 'enemy');
         }
       }
-    }
+
 
 
     this.turnToStone = function(){
       for (var y=0; y<6; y++){
         for (var x=0; x<6; x++){
-          if(board[y][x].type=='crystal'){
+          if(board[y][x].type==='crystal'){
             board[y][x].type = 'obstacle';
 
             that.findDiv(y, x).find($('div')).attr('class', 'obstacle');
