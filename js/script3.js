@@ -33,7 +33,7 @@ $(document).ready(function(){
       var    x = this.x;
 
       // Recursion Break Condition
-      if (checkType != selfType) { return 0; }
+      if (checkType !== selfType) { return 0; }
 
       var topCounter, leftCounter, botCounter, rightCounter;
       topCounter = leftCounter = botCounter = rightCounter = 0;
@@ -141,16 +141,10 @@ $(document).ready(function(){
       aliens = [];
       for (var y=0; y<6; y++){
         for (var x=0; x<6; x++){
-          if(board[y][x].type=='enemy'){
+          if(board[y][x].type==='enemy'){
             aliens.push([y, x]);
           }
         }
-      }
-    }
-
-    this.moveAlien = function(y, x, newPosition){
-      if(board[y][x].type=== 'blank'){
-        return newPosition=[y, x];
       }
     }
 
@@ -245,7 +239,7 @@ $(document).ready(function(){
       var existingPiece = 0;
       for (var y=0; y<6; y++){
         for (var x=0; x<6; x++){
-          if(board[y][x].type!='blank'){
+          if(board[y][x].type!=='blank'){
             existingPiece++;
           }
         }
@@ -279,7 +273,7 @@ $(document).ready(function(){
     this.placeChessPiece = function(e){
       var $grid = $(e.target);
       var targetPiece = null;
-      if (nextPieceType=='destruct'){
+      if (nextPieceType==='destruct'){
         var row = $grid.parent().data('row');
         var col = $grid.parent().data('column');
       } else {
@@ -309,7 +303,7 @@ $(document).ready(function(){
       console.log(aliens);
       that.checkOccupiedGrid();
 
-      if (occupiedGrid==36){
+      if (occupiedGrid===36){
         that.gameOver();
         // that.reset();
       }
@@ -318,7 +312,7 @@ $(document).ready(function(){
     this.click = function(e){
       var $grid = $(e.target);
       var gridHasClass = !!$grid.attr("class");
-      if (!gridHasClass||nextPieceType == 'destruct'){
+      if (!gridHasClass||nextPieceType === 'destruct'){
         that.placeChessPiece(e);
         that.turnToStone();
         that.randomPiece();
